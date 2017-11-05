@@ -80,6 +80,8 @@ public class PessoaBean {
 
         pessoaDAO.salvar(pessoa, fisico, juridico);
         setPessoa(new Pessoa());
+        FacesContext.getCurrentInstance().addMessage("growl",
+                    new FacesMessage("Cliente Cadastrado", "Agora voce poderá acessr nosso painel de login e realizar suas compras!"));
     }
 
     public void listar() throws SQLException {
