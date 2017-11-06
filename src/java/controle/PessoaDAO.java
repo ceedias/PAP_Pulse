@@ -51,9 +51,13 @@ public class PessoaDAO {
             ps.setInt(16, juridico.getQtd_funcionarios());
             ps.executeUpdate();
             /*conexao.commit();*/
+            ConnectionFactory.fecharConexao();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ex.toString());
+        
         }
+        
     }
     
     public List<Pessoa> buscar(){

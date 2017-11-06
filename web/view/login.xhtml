@@ -16,13 +16,14 @@
         <br/>
         <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" />
-            <h:outputLabel value="Login"/>
-            <p:inputText  id="login" value="#{pessoaBean.pessoa.login}"/>
-            <h:outputLabel value="Senha"/>
-            <p:inputText  id="senha" value="#{pessoaBean.pessoa.senha}"/>
+            <p:panelGrid columns="2" style="background-color: #1E90FF; ">
+                <h:outputLabel value="Login"/>
+                <p:inputText  id="login" value="#{pessoaBean.pessoa.login}"/>
+                <h:outputLabel value="Senha"/>
+                <p:password  id="senha" value="#{pessoaBean.pessoa.senha}"/>
 
-            <p:commandButton action="#{pessoaBean.verificaLogin()}" value="Logar" update="growl"> </p:commandButton>
-
+                <p:commandButton action="#{pessoaBean.verificaLogin()}" value="Logar" update="growl"> </p:commandButton>
+            </p:panelGrid>
         </h:form>		
 
     </ui:define>

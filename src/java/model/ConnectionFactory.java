@@ -19,7 +19,10 @@ public class ConnectionFactory {
     private static final String SENHA = "ADMIN"; 
     
     public static Connection connect() {
-        if(conexao == null){
+         
+        fecharConexao();
+
+        if(conexao == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conexao = DriverManager.getConnection(URL_CONEXAO, USUARIO, SENHA);

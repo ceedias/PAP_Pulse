@@ -50,6 +50,8 @@ public class LoginDAO  {
                         ResultSet rs  = pstmt.executeQuery();
                         
                        result = rs.next();
+                       conn.commit();
+                        ConnectionFactory.fecharConexao();
                         
              } catch (SQLException e) {
                     System.out.println(e.getMessage());
