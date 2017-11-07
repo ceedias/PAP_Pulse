@@ -5,16 +5,23 @@
  */
 package controle;
 
+import com.sun.faces.action.RequestMapping;
+import static com.sun.faces.el.FacesCompositeELResolver.ELResolverChainType.Faces;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.Pessoa;
 import java.sql.SQLException;
+import java.util.Base64;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import model.Fisico;
 import model.Juridico;
+
 
 /**
  *
@@ -22,6 +29,7 @@ import model.Juridico;
  */
 @ManagedBean
 @SessionScoped
+@RequestMapping ("/login.xhtml")
 public class PessoaBean {
 
     private Pessoa pessoa = new Pessoa();
@@ -147,9 +155,23 @@ public class PessoaBean {
     public String verificaLogin() throws SQLException {
 
         if (getDao().verificaLogin(getPessoa())) {
-
+            
+           FacesContext context = FacesContext.getCurrentInstance();
+           Cookie usuario = new Cookie("usuario",pessoa.getLogin());
+           
+           byte[] encodedBytes = Base64.getEncoder().encode(pessoa.getSenha().getBytes());
+           String senhaCriptografada = new String(encodedBytes);
+           
+           Cookie senha = new Cookie("senha", senhaCriptografada);
+ 
+           Cookie logado = new Cookie("logado","true");
+           
+           ((HttpServletResponse)context.getExternalContext().getResponse()).addCookie(usuario);
+           ((HttpServletResponse)context.getExternalContext().getResponse()).addCookie(senha);
+           ((HttpServletResponse)context.getExternalContext().getResponse()).addCookie(logado);
+            
             return vaiParaIndex();
-
+                     
         } else {
             FacesContext.getCurrentInstance().addMessage("growl",
                     new FacesMessage("Não autorizado", "Nenhum registro foi encontrado com essas informações"));
@@ -161,5 +183,6 @@ public class PessoaBean {
     public String vaiParaIndex() {
         return "/view/indexLogon?faces-redirect=true";
     }
+    
 
 }

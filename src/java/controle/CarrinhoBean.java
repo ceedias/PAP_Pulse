@@ -5,10 +5,23 @@
  */
 package controle;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author cesardias
  */
 public class CarrinhoBean {
+    private HttpServletRequest request;
+    private HttpServletResponse response;
     
+
+
+
+
+   
+
 }

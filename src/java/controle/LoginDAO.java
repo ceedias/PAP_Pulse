@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.http.Cookie;
 import model.Pessoa;
 import model.ConnectionFactory;
 
@@ -50,6 +51,11 @@ public class LoginDAO  {
                         ResultSet rs  = pstmt.executeQuery();
                         
                        result = rs.next();
+                       
+                        Cookie userLogged = new Cookie("userLogged", "true");
+                        Cookie nome = new Cookie("nome", pessoa.getLogin());
+                        Cookie password= new Cookie("password", pessoa.getSenha());
+
                        conn.commit();
                         ConnectionFactory.fecharConexao();
                         
