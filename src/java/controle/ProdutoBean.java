@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import model.Carrinho;
 import model.Produto;
 
 /**
@@ -17,6 +18,22 @@ import model.Produto;
  */
 @ManagedBean
 public class ProdutoBean {
+    private Produto produto = new Produto();
+   private  Carrinho carrinho = new Carrinho();
+
+    /**
+     * @return the carrinhoDAO
+     */
+    public CarrinhoDAO getCarrinhoDAO() {
+        return carrinhoDAO;
+    }
+
+    /**
+     * @param carrinhoDAO the carrinhoDAO to set
+     */
+    public void setCarrinhoDAO(CarrinhoDAO carrinhoDAO) {
+        this.carrinhoDAO = carrinhoDAO;
+    }
 
     /**
      * @return the produto
@@ -59,13 +76,14 @@ public class ProdutoBean {
     public void setProdutoDAO(ProdutoDAO produtoDAO) {
         this.produtoDAO = produtoDAO;
     }
-    private Produto produto = new Produto();
+   
     private List<Produto> produtos = new ArrayList<>();
     private ProdutoDAO produtoDAO = new ProdutoDAO();
+    private CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
 
     public void adicionar() throws SQLException {
         getProdutos().add(getProduto());
-        getProdutoDAO().salvar(getProduto());
+        getCarrinhoDAO().insereNoCarrinho(carrinho);
         setProduto(new Produto());
     }
 
